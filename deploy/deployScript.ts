@@ -8,9 +8,11 @@ import {
   GenLayerChain,
 } from "genlayer-js/types";
 import { localnet } from "genlayer-js/chains";
+import { tracePrismLLM } from "../observability/prism.js";
 
 export default async function main(client: GenLayerClient<any>) {
   const filePath = path.resolve(process.cwd(), "contracts/genswarm.py");
+  const started = Date.now();
 
   try {
     const contractCode = new Uint8Array(readFileSync(filePath));
@@ -54,6 +56,19 @@ export default async function main(client: GenLayerClient<any>) {
     console.log(
       `\n   Add to frontend/.env as NEXT_PUBLIC_CONTRACT_ADDRESS=${deployedContractAddress}`
     );
+
+    void tracePrismLLM({
+      agentId: "genswarm-contract",
+      agentName: "GenSwarm Deploy",
+      model: "deploy-script",
+      inputMessages: [
+        { role: "system", content: "Deploy the GenSwarm intelligent contract." },
+        { role: "user", content: filePath },
+      ],
+      output: JSON.stringify({ contractAddress: deployedContractAddress, network: (client.chain as GenLayerChain).id }),
+      latencyMs: Date.now() - started,
+      metadata: { contractAddress: deployedContractAddress, network: (client.chain as GenLayerChain).id },
+    });
   } catch (error) {
     throw new Error(`Error during deployment:, ${error}`);
   }

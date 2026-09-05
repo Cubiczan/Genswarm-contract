@@ -16,6 +16,10 @@ https://github.com/user-attachments/assets/demo.mp4
 > _Generated with [demo-video-generator](https://github.com/zan-maker/demo-video-generator)_
 > **The missing coordination layer for the agentic economy.**
 
+## PRISMtrace
+
+Set `PRISMTRACE_API_KEY` and `PRISMTRACE_PROJECT_ID` to export deployment traces to BlockConvey.
+
 <p align="center">
   <strong>Hackathon:</strong> GenLayer Bradbury Testnet — Track 1: Agentic Economy Infrastructure<br>
   <strong>Status:</strong> 🟢 Deployed on Bradbury Testnet<br>
@@ -297,4 +301,3 @@ This repository is hardened with the [Consensus Hardening Protocol (CHP)](https:
 
 ### CHP Version
 cognitive-mesh-orchestrator 0.1.0 | [Protocol Docs](https://codeberg.org/cubiczan/consensus-hardening-protocol)
-
